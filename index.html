@@ -289,27 +289,26 @@
         backDelay: 1000,
         });
         
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwLtDZcDqu-Es2x4nuTTVIwKIVgjCV2d8Am02pgTuGEEIo_C4qw20ZhYk5M4-RcyZYX/exec'
         const form = document.forms["submit-to-google-sheet"];
-        const msg = document.getElementById("msg")
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
 
             let formData = new FormData(form);
 
             try {
-                let response = await fetch(scriptURL, {
+                let response = await fetch("/.netlify/functions/submitForm", {
                     method: "POST",
-                    mode: "no-cors",
                     body: formData
                 });
 
+                let result = await response.json();
                 alert("Data submitted successfully!");
                 form.reset();
             } catch (error) {
                 console.error("Error submitting form:", error);
             }
         });
+
 
     </script>
 </body>
